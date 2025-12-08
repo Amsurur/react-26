@@ -2,6 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: 0,
+  data: [
+    {
+      id: 1,
+      name: "Abubakr",
+      age: 20,
+    },
+    {
+      id: 2,
+      name: "Ahmad",
+      age: 22,
+    },
+  ],
 };
 
 export const TodoSlice = createSlice({
@@ -14,10 +26,14 @@ export const TodoSlice = createSlice({
     decrement: (state, action) => {
       state.value = state.value - 1;
     },
+    deleteUser: (state, action) => {
+      console.log(action);
+      state.data = state.data.filter((e) => e.id != action.payload);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement } = TodoSlice.actions;
+export const { increment, decrement, deleteUser } = TodoSlice.actions;
 
 export default TodoSlice.reducer;
