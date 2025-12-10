@@ -1,49 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  value: 0,
-  value2: 0,
-  value3: 0,
+interface IData {
+  id: number;
+  name: string;
+  age: number;
+}
+export interface CounterState {
+  data: IData[];
+}
 
-  data: [
-    {
-      id: 1,
-      name: "Abubakr",
-      age: 20,
-    },
-    {
-      id: 2,
-      name: "Ahmad",
-      age: 22,
-    },
-  ],
+const initialState: CounterState = {
+  data: [{ id: 1, name: "Ahmad", age: 15 }],
 };
 
-export const TodoSlice = createSlice({
-  name: "todo",
+export const counterSlice = createSlice({
+  name: "counter",
   initialState,
   reducers: {
-    increment: (state, action) => {
-      state.value = state.value + 1;
+    deleteData: (state, { payload }) => {
+      state.data = state.data.filter((e) => e.id != payload);
     },
-    decrement: (state, action) => {
-      state.value = state.value - 1;
-    },
-    deleteUser: (state, action) => {
-      console.log(action);
-      state.data = state.data.filter((e) => e.id != action.payload);
-    },
-    addUser: (state, { payload }) => {
+    addData: (state, { payload }) => {
       state.data.push(payload);
-    },
-    setValue: (state, { payload }) => {
-      state[payload.key] = payload.value;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, setValue, deleteUser, addUser } =
-  TodoSlice.actions;
+export const { deleteData, addData } = counterSlice.actions;
 
-export default TodoSlice.reducer;
+export default counterSlice.reducer;
